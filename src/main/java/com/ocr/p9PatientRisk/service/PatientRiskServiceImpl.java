@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +59,7 @@ public class PatientRiskServiceImpl implements PatientRiskService {
         // TODO voir le cas de  = 30 ans si on entre dans les conditions
 
         if(patientDTO != null) {
-            Integer agePatient = Utils.calculateAge(patientDTO.getBirthDate());
+            Integer agePatient = Utils.calculateAge(patientDTO.getBirthDate(), LocalDate.now());
             patientRiskDTO.setPatientId(patientDTO.getId());
             patientRiskDTO.setPatientInfo("A faire..., age ...:" + agePatient);
             // Cas 1
