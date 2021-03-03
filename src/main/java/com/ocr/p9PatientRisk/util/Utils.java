@@ -26,9 +26,20 @@ public class Utils {
     }
 
     public static Map<String, Integer> searchItems(String[] items, List<NoteDTO> notes) {
-        // TODO  à faire
         log.debug("searchItems");
         Map<String, Integer> mapResult = new HashMap<>();
+
+        for(NoteDTO note : notes) {
+            for(String item : items) {
+                if(note.getNote().contains(item)) {
+                    if(mapResult.get(item) != null) {
+                        mapResult.put(item,mapResult.get(item)+1);
+                    } else {
+                        mapResult.put(item,1);
+                    }
+                }
+            }
+        }
         return mapResult;
     }
 }

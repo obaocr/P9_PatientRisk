@@ -2,6 +2,7 @@ package com.ocr.p9PatientRisk.service;
 
 import com.ocr.p9PatientRisk.model.NoteDTO;
 import com.ocr.p9PatientRisk.model.PatientDTO;
+import com.ocr.p9PatientRisk.model.PatientRiskDTO;
 import com.ocr.p9PatientRisk.proxies.NoteProxy;
 import com.ocr.p9PatientRisk.proxies.PatientProxy;
 import org.junit.jupiter.api.Test;
@@ -57,14 +58,82 @@ public class PatientRiskServiceTest {
         NoteDTO noteDTO = new NoteDTO();
         noteDTO.setPatientId(999);
         noteDTO.setNoteId("1");
-        noteDTO.setNote("Once upon a time...");
-        noteDTO.setTitle("Titre de la note");
+        noteDTO.setNote("Once upon a time...Hémoglobine A1C,Microalbumine,Taille,Poids,Fumeur,Anormal" +
+                ",Cholestérol,Vertige,Rechute,Réaction,Anticorps");
+        noteDTO.setTitle("Titre de la note 1");
+        notes.add(noteDTO);
+        noteDTO = new NoteDTO();
+        noteDTO.setPatientId(999);
+        noteDTO.setNoteId("2");
+        noteDTO.setNote("Once upon a time 2...Hémoglobine A1C,Microalbumine,Cholestérol,Vertige...");
+        noteDTO.setTitle("Titre de la note 2");
         notes.add(noteDTO);
         Mockito.when(noteProxy.getNotesByPatientId(999)).thenReturn(notes);
 
-        assertTrue(patientRiskService.getPatientRisk(999).getRisk() != null);
-        assertTrue(patientRiskService.getPatientRisk(999).getPatientInfo() != null);
-        assertTrue(patientRiskService.getPatientRisk(999).getCalculated() == true);
+        PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
+
+        assertTrue(patientRiskDTO.getRisk() != null);
+        assertTrue(patientRiskDTO.getPatientInfo() != null);
+        assertTrue(patientRiskDTO.getCalculated() == true);
+    }
+
+    @Test
+    void getPatientRisk_2() {
+        LocalDate birth = LocalDate.of(2000, 1, 15);
+        PatientDTO patient = new PatientDTO();
+        patient.setAddress("27 rue des oliviers");
+        patient.setBirthDate(birth);
+        patient.setFamilly("Martin");
+        patient.setGiven("Aline");
+        patient.setPhone("0102030405");
+        patient.setSex("F");
+        patient.setId(999);
+        Mockito.when(patientProxy.getPatientById(999)).thenReturn(patient);
+
+        List<NoteDTO> notes = new ArrayList<>();
+        NoteDTO noteDTO = new NoteDTO();
+        noteDTO.setPatientId(999);
+        noteDTO.setNoteId("1");
+        noteDTO.setNote("Once upon a time...Hémoglobine A1C,Microalbumine,Taille,Poids,Fumeur,Anormal" +
+                ",Cholestérol,Vertige,Rechute,Réaction,Anticorps");
+        noteDTO.setTitle("Titre de la note 1");
+        notes.add(noteDTO);
+        noteDTO = new NoteDTO();
+        noteDTO.setPatientId(999);
+        noteDTO.setNoteId("2");
+        noteDTO.setNote("Once upon a time 2...Hémoglobine A1C,Microalbumine,Cholestérol,Vertige...");
+        noteDTO.setTitle("Titre de la note 2");
+        notes.add(noteDTO);
+        Mockito.when(noteProxy.getNotesByPatientId(999)).thenReturn(notes);
+
+        PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
+
+        assertTrue(patientRiskDTO.getRisk() != null);
+        assertTrue(patientRiskDTO.getPatientInfo() != null);
+        assertTrue(patientRiskDTO.getCalculated() == true);
+    }
+
+    @Test
+    void getPatientRisk_3() {
+        LocalDate birth = LocalDate.of(2000, 1, 15);
+        PatientDTO patient = new PatientDTO();
+        patient.setAddress("27 rue des oliviers");
+        patient.setBirthDate(birth);
+        patient.setFamilly("Martin");
+        patient.setGiven("Aline");
+        patient.setPhone("0102030405");
+        patient.setSex("F");
+        patient.setId(999);
+        Mockito.when(patientProxy.getPatientById(999)).thenReturn(patient);
+
+        List<NoteDTO> notes = new ArrayList<>();
+        Mockito.when(noteProxy.getNotesByPatientId(999)).thenReturn(notes);
+
+        PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
+
+        assertTrue(patientRiskDTO.getRisk() != null);
+        assertTrue(patientRiskDTO.getPatientInfo() != null);
+        assertTrue(patientRiskDTO.getCalculated() == true);
     }
 
 }

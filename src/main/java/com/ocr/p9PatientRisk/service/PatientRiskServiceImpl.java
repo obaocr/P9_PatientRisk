@@ -41,7 +41,7 @@ public class PatientRiskServiceImpl implements PatientRiskService {
     private static final String riskDanger = "In Danger";
     private static final String riskEarly = "Early onset";
 
-    private static final String[] declencheurs = new String[]{"Hémoglobine A1C","'Microalbumine","Taille","Poids","Fumeur"
+    private static final String[] declencheurs = new String[]{"Hémoglobine A1C","Microalbumine","Taille","Poids","Fumeur"
             ,"Anormal","Cholestérol","Vertige","Rechute","Réaction","Anticorps"};
 
     @Override
@@ -60,8 +60,9 @@ public class PatientRiskServiceImpl implements PatientRiskService {
 
         if(patientDTO != null) {
             Integer agePatient = Utils.calculateAge(patientDTO.getBirthDate(), LocalDate.now());
+            String infoPatient = patientDTO.getGiven() + " " + patientDTO.getFamilly() + " (age " +agePatient+")";
             patientRiskDTO.setPatientId(patientDTO.getId());
-            patientRiskDTO.setPatientInfo("A faire..., age ...:" + agePatient);
+            patientRiskDTO.setPatientInfo(infoPatient);
             // Cas 1
             if(notes.size() == 0) {
                 patientRiskDTO.setCalculated(true);
@@ -76,23 +77,23 @@ public class PatientRiskServiceImpl implements PatientRiskService {
                     patientRiskDTO.setCalculated(true);
                     patientRiskDTO.setRisk(riskBorder);
                 }
-                if(agePatient < 30 && patientDTO.getSex().equals("M") && mapResult.size() == 3 ) {
+                if(agePatient < 30 && patientDTO.getSex().equals("M") && mapResult.size() >= 3 ) {
                     patientRiskDTO.setCalculated(true);
                     patientRiskDTO.setRisk(riskDanger);
                 }
-                if(agePatient < 30 && patientDTO.getSex().equals("F") && mapResult.size() == 4 ) {
+                if(agePatient < 30 && patientDTO.getSex().equals("F") && mapResult.size() >= 4 ) {
                     patientRiskDTO.setCalculated(true);
                     patientRiskDTO.setRisk(riskDanger);
                 }
-                if(agePatient >= 30 && mapResult.size() == 6 ) {
+                if(agePatient >= 30 && mapResult.size() >= 6 ) {
                     patientRiskDTO.setCalculated(true);
                     patientRiskDTO.setRisk(riskDanger);
                 }
-                if(agePatient < 30 && patientDTO.getSex().equals("M") && mapResult.size() == 5 ) {
+                if(agePatient < 30 && patientDTO.getSex().equals("M") && mapResult.size() >= 5 ) {
                     patientRiskDTO.setCalculated(true);
                     patientRiskDTO.setRisk(riskEarly);
                 }
-                if(agePatient < 30 && patientDTO.getSex().equals("F") && mapResult.size() == 7 ) {
+                if(agePatient < 30 && patientDTO.getSex().equals("F") && mapResult.size() >= 7 ) {
                     patientRiskDTO.setCalculated(true);
                     patientRiskDTO.setRisk(riskEarly);
                 }
@@ -101,6 +102,10 @@ public class PatientRiskServiceImpl implements PatientRiskService {
                     patientRiskDTO.setRisk(riskEarly);
                 }
             }
+        }
+        if(patientRiskDTO.getCalculated() == null || patientRiskDTO.getCalculated() == false) {
+            patientRiskDTO.setCalculated(true);
+            patientRiskDTO.setRisk(riskNone);
         }
         return patientRiskDTO;
     }
