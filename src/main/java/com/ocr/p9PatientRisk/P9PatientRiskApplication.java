@@ -2,7 +2,9 @@ package com.ocr.p9PatientRisk;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
+@EnableFeignClients("com.ocr.p9PatientRisk")
 @SpringBootApplication
 public class P9PatientRiskApplication {
 

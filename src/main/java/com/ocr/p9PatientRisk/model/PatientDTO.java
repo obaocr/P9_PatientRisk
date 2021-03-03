@@ -2,30 +2,17 @@ package com.ocr.p9PatientRisk.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class PatientDTO {
 
     private Integer Id;
-    @NotBlank(message="Please enter familly name")
-    @Size(min = 1, max = 30, message="familly name must be between 1 and 30 characters")
     private String familly;
-    @NotBlank(message="Please enter given name")
-    @Size(min = 1, max = 30, message="given name must be between 1 and 30 characters")
     private String given;
-    @NotBlank(message="Please enter address")
-    @Size(min = 1, max = 100, message="address must be between 1 and 100 characters")
     private String address;
-    @NotBlank(message="Please enter phone")
-    @Size(min = 9, max = 30, message="phone must be between 1 and 15 characters")
     private String phone;
-    @NotBlank(message="Please enter the gender M/F")
     private String sex;
-    @NotNull(message="Please enter the birth date")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthDate;
     private LocalDateTime createDate;

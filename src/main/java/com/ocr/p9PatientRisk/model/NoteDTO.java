@@ -1,17 +1,12 @@
 package com.ocr.p9PatientRisk.model;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 public class NoteDTO {
 
     private String noteId;
     private Integer patientId;
-    @NotBlank(message="Please enter a title")
-    @Size(min = 3, max = 100, message = "title size between 3 and 100")
     private String title;
-    @NotBlank(message="Please enter a note")
     private String note;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
