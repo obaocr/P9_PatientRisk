@@ -23,8 +23,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// TODO Mock calcul date de naissance
-
 @ExtendWith(SpringExtension.class)
 public class PatientRiskServiceTest {
 
@@ -201,8 +199,167 @@ public class PatientRiskServiceTest {
 
         PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
 
+        assertTrue(patientRiskDTO.getRisk().equals("In Danger"));
+        assertTrue(patientRiskDTO.getPatientInfo().startsWith("Alain Martin"));
+        assertTrue(patientRiskDTO.getCalculated() == true);
+    }
+
+    @Test
+    void getPatientRisk_6() {
+        LocalDate birth = LocalDate.of(2000, 1, 15);
+        LocalDate dt2 = LocalDate.of(2020, 1, 15);
+        PatientDTO patient = new PatientDTO();
+        patient.setAddress("27 rue des oliviers");
+        patient.setBirthDate(birth);
+        patient.setFamilly("Martin");
+        patient.setGiven("Alain");
+        patient.setPhone("0102030405");
+        patient.setSex("M");
+        patient.setId(999);
+        Mockito.when(patientProxy.getPatientById(999)).thenReturn(patient);
+
+        List<NoteDTO> notes = new ArrayList<>();
+        NoteDTO noteDTO = new NoteDTO();
+        noteDTO.setPatientId(999);
+        noteDTO.setNoteId("1");
+        noteDTO.setNote("Once upon a time...Hémoglobine A1C,Microalbumine,Taille,Poids");
+        noteDTO.setTitle("Titre de la note 1");
+        notes.add(noteDTO);
+        Mockito.when(noteProxy.getNotesByPatientId(999)).thenReturn(notes);
+        Mockito.when(dateProvider.getNow()).thenReturn(dt2);
+
+        PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
+
         System.out.println("patientRiskDTO.getRisk()" + patientRiskDTO.getRisk());
         assertTrue(patientRiskDTO.getRisk().equals("In Danger"));
+        assertTrue(patientRiskDTO.getPatientInfo().startsWith("Alain Martin"));
+        assertTrue(patientRiskDTO.getCalculated() == true);
+    }
+
+    @Test
+    void getPatientRisk_7() {
+        LocalDate birth = LocalDate.of(1900, 1, 15);
+        LocalDate dt2 = LocalDate.of(2020, 1, 15);
+        PatientDTO patient = new PatientDTO();
+        patient.setAddress("27 rue des oliviers");
+        patient.setBirthDate(birth);
+        patient.setFamilly("Martin");
+        patient.setGiven("Alain");
+        patient.setPhone("0102030405");
+        patient.setSex("M");
+        patient.setId(999);
+        Mockito.when(patientProxy.getPatientById(999)).thenReturn(patient);
+
+        List<NoteDTO> notes = new ArrayList<>();
+        NoteDTO noteDTO = new NoteDTO();
+        noteDTO.setPatientId(999);
+        noteDTO.setNoteId("1");
+        noteDTO.setNote("Once upon a time...Hémoglobine A1C,Microalbumine,Taille,Poids,Fumeur,Anormal");
+        noteDTO.setTitle("Titre de la note 1");
+        notes.add(noteDTO);
+        Mockito.when(noteProxy.getNotesByPatientId(999)).thenReturn(notes);
+        Mockito.when(dateProvider.getNow()).thenReturn(dt2);
+
+        PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
+
+        System.out.println("patientRiskDTO.getRisk()" + patientRiskDTO.getRisk());
+        assertTrue(patientRiskDTO.getRisk().equals("In Danger"));
+        assertTrue(patientRiskDTO.getPatientInfo().startsWith("Alain Martin"));
+        assertTrue(patientRiskDTO.getCalculated() == true);
+    }
+
+    @Test
+    void getPatientRisk_8() {
+        LocalDate birth = LocalDate.of(2000, 1, 15);
+        LocalDate dt2 = LocalDate.of(2020, 1, 15);
+        PatientDTO patient = new PatientDTO();
+        patient.setAddress("27 rue des oliviers");
+        patient.setBirthDate(birth);
+        patient.setFamilly("Martin");
+        patient.setGiven("Alain");
+        patient.setPhone("0102030405");
+        patient.setSex("M");
+        patient.setId(999);
+        Mockito.when(patientProxy.getPatientById(999)).thenReturn(patient);
+
+        List<NoteDTO> notes = new ArrayList<>();
+        NoteDTO noteDTO = new NoteDTO();
+        noteDTO.setPatientId(999);
+        noteDTO.setNoteId("1");
+        noteDTO.setNote("Once upon a time...Hémoglobine A1C,Microalbumine,Taille,Poids,Fumeur,Anormal");
+        noteDTO.setTitle("Titre de la note 1");
+        notes.add(noteDTO);
+        Mockito.when(noteProxy.getNotesByPatientId(999)).thenReturn(notes);
+        Mockito.when(dateProvider.getNow()).thenReturn(dt2);
+
+        PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
+
+        System.out.println("patientRiskDTO.getRisk()" + patientRiskDTO.getRisk());
+        assertTrue(patientRiskDTO.getRisk().equals("Early onset"));
+        assertTrue(patientRiskDTO.getPatientInfo().startsWith("Alain Martin"));
+        assertTrue(patientRiskDTO.getCalculated() == true);
+    }
+
+    @Test
+    void getPatientRisk_9() {
+        LocalDate birth = LocalDate.of(2000, 1, 15);
+        LocalDate dt2 = LocalDate.of(2020, 1, 15);
+        PatientDTO patient = new PatientDTO();
+        patient.setAddress("27 rue des oliviers");
+        patient.setBirthDate(birth);
+        patient.setFamilly("Martin");
+        patient.setGiven("Alain");
+        patient.setPhone("0102030405");
+        patient.setSex("F");
+        patient.setId(999);
+        Mockito.when(patientProxy.getPatientById(999)).thenReturn(patient);
+
+        List<NoteDTO> notes = new ArrayList<>();
+        NoteDTO noteDTO = new NoteDTO();
+        noteDTO.setPatientId(999);
+        noteDTO.setNoteId("1");
+        noteDTO.setNote("Once upon a time...Hémoglobine A1C,Microalbumine,Taille,Poids,Fumeur,Anormal" +
+                ",Cholestérol,Vertige,Rechute,Réaction,Anticorps");
+        notes.add(noteDTO);
+        Mockito.when(noteProxy.getNotesByPatientId(999)).thenReturn(notes);
+        Mockito.when(dateProvider.getNow()).thenReturn(dt2);
+
+        PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
+
+        System.out.println("patientRiskDTO.getRisk()" + patientRiskDTO.getRisk());
+        assertTrue(patientRiskDTO.getRisk().equals("Early onset"));
+        assertTrue(patientRiskDTO.getPatientInfo().startsWith("Alain Martin"));
+        assertTrue(patientRiskDTO.getCalculated() == true);
+    }
+
+    @Test
+    void getPatientRisk_10() {
+        LocalDate birth = LocalDate.of(1900, 1, 15);
+        LocalDate dt2 = LocalDate.of(2020, 1, 15);
+        PatientDTO patient = new PatientDTO();
+        patient.setAddress("27 rue des oliviers");
+        patient.setBirthDate(birth);
+        patient.setFamilly("Martin");
+        patient.setGiven("Alain");
+        patient.setPhone("0102030405");
+        patient.setSex("F");
+        patient.setId(999);
+        Mockito.when(patientProxy.getPatientById(999)).thenReturn(patient);
+
+        List<NoteDTO> notes = new ArrayList<>();
+        NoteDTO noteDTO = new NoteDTO();
+        noteDTO.setPatientId(999);
+        noteDTO.setNoteId("1");
+        noteDTO.setNote("Once upon a time...Hémoglobine A1C,Microalbumine,Taille,Poids,Fumeur,Anormal" +
+                ",Cholestérol,Vertige,Rechute,Réaction,Anticorps");
+        notes.add(noteDTO);
+        Mockito.when(noteProxy.getNotesByPatientId(999)).thenReturn(notes);
+        Mockito.when(dateProvider.getNow()).thenReturn(dt2);
+
+        PatientRiskDTO patientRiskDTO = patientRiskService.getPatientRisk(999);
+
+        System.out.println("patientRiskDTO.getRisk()" + patientRiskDTO.getRisk());
+        assertTrue(patientRiskDTO.getRisk().equals("Early onset"));
         assertTrue(patientRiskDTO.getPatientInfo().startsWith("Alain Martin"));
         assertTrue(patientRiskDTO.getCalculated() == true);
     }

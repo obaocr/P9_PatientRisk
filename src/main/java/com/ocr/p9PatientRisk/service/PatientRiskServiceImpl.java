@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 
-// TODO gérer not found
+// TODO gérer not found et retours HTTP ...
 
 /**
  * PatientRiskServiceImpl : implementation for PatientRiskService
@@ -54,16 +54,14 @@ public class PatientRiskServiceImpl implements PatientRiskService {
 
         PatientDTO patientDTO = patientProxy.getPatientById(Id);
         notes = noteProxy.getNotesByPatientId(Id);
-        Map<String,Integer> mapResult;
 
-        // TODO voir le cas de  = 30 ans si on entre dans les conditions
+        Map<String,Integer> mapResult;
 
         if(patientDTO != null) {
             Integer agePatient = Utils.calculateAge(patientDTO.getBirthDate(), LocalDate.now());
             String infoPatient = patientDTO.getGiven() + " " + patientDTO.getFamilly() + " (age " +agePatient+")";
             patientRiskDTO.setPatientId(patientDTO.getId());
             patientRiskDTO.setPatientInfo(infoPatient);
-            // Cas 1
             if(notes.size() == 0) {
                 patientRiskDTO.setCalculated(true);
                 patientRiskDTO.setRisk(riskNone);

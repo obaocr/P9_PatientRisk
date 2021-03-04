@@ -66,6 +66,11 @@ public class UtilsTest {
         assertTrue(mapResult.size() == 11);
     }
 
-
+    @Test
+    void dateProviderTest() {
+        LocalDate dt1 = LocalDate.now();
+        LocalDate dt2 = new DateProvider().getNow();
+        assertTrue(dt1.getYear() <= dt2.getYear());
+    }
 
 }
