@@ -28,9 +28,9 @@ public class PatientRiskControler {
         return "P9 Patient Risk Home";
     }
 
-    // TODO gérer notfound ?
+    // TODO gérer not found ?
 
-    @GetMapping("/patientRisk/{Id}")
+    @GetMapping("/assess/{Id}")
     public PatientRiskDTO getPatientRiskById(@PathVariable Integer Id) {
         log.debug("getPatientRiskById");
         if (Id == null || Id == 0 ) {

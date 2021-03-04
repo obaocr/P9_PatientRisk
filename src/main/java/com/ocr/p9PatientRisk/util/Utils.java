@@ -17,7 +17,7 @@ public class Utils {
     public static Integer calculateAge(LocalDate birthDate, LocalDate currentDate) {
         log.debug("calculateAge");
         if (currentDate == null) {
-            currentDate = LocalDate.now();
+            currentDate = new DateProvider().getNow();
         }
         if (birthDate != null) {
             return Period.between(birthDate, currentDate).getYears();
@@ -42,4 +42,5 @@ public class Utils {
         }
         return mapResult;
     }
+
 }

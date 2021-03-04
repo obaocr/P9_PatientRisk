@@ -42,7 +42,7 @@ public class PatientRiskControllerTest {
 
         Mockito.when(patientRiskService.getPatientRisk(999)).thenReturn(patientRiskDTO);
 
-        this.mockMvc.perform(get("/patientRisk/999")
+        this.mockMvc.perform(get("/assess/999")
                 .characterEncoding("utf-8"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -58,7 +58,7 @@ public class PatientRiskControllerTest {
 
         Mockito.when(patientRiskService.getPatientRisk(999)).thenReturn(patientRiskDTO);
 
-        this.mockMvc.perform(get("/patientRisk/0")
+        this.mockMvc.perform(get("/assess/0")
                 .characterEncoding("utf-8"))
                 .andDo(print())
                 .andExpect(status().isBadRequest())
