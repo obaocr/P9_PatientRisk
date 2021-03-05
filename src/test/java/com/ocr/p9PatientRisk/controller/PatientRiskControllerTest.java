@@ -64,4 +64,21 @@ public class PatientRiskControllerTest {
                 .andExpect(status().isBadRequest())
                 .andReturn();
     }
+
+    @Test
+    void getPatientRiskByNameShouldReturnOK() throws Exception {
+        PatientRiskDTO patientRiskDTO = new PatientRiskDTO();
+        patientRiskDTO.setPatientId(999);
+        patientRiskDTO.setPatientInfo("Alain Martin (age 12)");
+        patientRiskDTO.setRisk("In Danger");
+
+        Mockito.when(patientRiskService.getPatientRisk(999)).thenReturn(patientRiskDTO);
+
+        this.mockMvc.perform(get("/assess")
+                .param("familly","Martin")
+                .characterEncoding("utf-8"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andReturn();
+    }
 }
