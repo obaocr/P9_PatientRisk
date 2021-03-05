@@ -2,6 +2,9 @@ package com.ocr.p9PatientRisk.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model for Note
+ */
 public class NoteDTO {
 
     private String noteId;

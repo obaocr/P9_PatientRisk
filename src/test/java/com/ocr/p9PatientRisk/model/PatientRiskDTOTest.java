@@ -12,9 +12,11 @@ public class PatientRiskDTOTest {
         patientRiskDTO.setPatientId(1);
         patientRiskDTO.setPatientInfo("test info");
         patientRiskDTO.setRisk("None");
+        patientRiskDTO.setNbrisk(5);
         assertTrue(patientRiskDTO.getPatientId() == 1);
         assertTrue(patientRiskDTO.getPatientInfo().equals("test info"));
         assertTrue(patientRiskDTO.getRisk().equals("None"));
+        assertTrue(patientRiskDTO.getNbrisk() == 5);
     }
 
 }

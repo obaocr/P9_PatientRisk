@@ -5,6 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+/**
+ * Model for Patient
+ */
 public class PatientDTO {
 
     private Integer Id;

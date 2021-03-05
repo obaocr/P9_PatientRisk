@@ -1,10 +1,14 @@
 package com.ocr.p9PatientRisk.model;
 
+/**
+ * Model for Patient Risk
+ */
 public class PatientRiskDTO {
     private Integer patientId;
     private String patientInfo;
     private String risk;
     private Boolean isCalculated;
+    private Integer nbrisk;
 
     public Integer getPatientId() {
         return patientId;
@@ -38,13 +42,12 @@ public class PatientRiskDTO {
         isCalculated = calculated;
     }
 
-    @Override
-    public String toString() {
-        return "PatientRiskDTO{" +
-                "patientId=" + patientId +
-                ", patientInfo='" + patientInfo + '\'' +
-                ", risk='" + risk + '\'' +
-                ", isCalculated=" + isCalculated +
-                '}';
+    public Integer getNbrisk() {
+        return nbrisk;
     }
+
+    public void setNbrisk(Integer nbrisk) {
+        this.nbrisk = nbrisk;
+    }
+
 }

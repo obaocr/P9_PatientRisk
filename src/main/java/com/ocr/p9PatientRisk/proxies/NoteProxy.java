@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
+/**
+ * Proxy Interface for Note
+ */
 @FeignClient(name = "microservice-note", url = "http://localhost:8049")
 public interface NoteProxy {
 

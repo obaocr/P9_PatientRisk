@@ -65,6 +65,7 @@ public class PatientRiskServiceImpl implements PatientRiskService {
             if(notes.size() == 0) {
                 patientRiskDTO.setCalculated(true);
                 patientRiskDTO.setRisk(riskNone);
+                patientRiskDTO.setNbrisk(0);
             } else {
                 mapResult = Utils.searchItems(declencheurs, notes);
                 if(patientDTO.getBirthDate() == null || patientDTO.getSex().equals("")) {
@@ -99,6 +100,7 @@ public class PatientRiskServiceImpl implements PatientRiskService {
                     patientRiskDTO.setCalculated(true);
                     patientRiskDTO.setRisk(riskEarly);
                 }
+                patientRiskDTO.setNbrisk(mapResult.size());
             }
         }
         if(patientRiskDTO.getCalculated() == null || patientRiskDTO.getCalculated() == false) {

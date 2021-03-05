@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Utils Class
+ */
 public class Utils {
 
     private static final Logger log = LogManager.getLogger(Utils.class);
@@ -31,7 +34,7 @@ public class Utils {
 
         for(NoteDTO note : notes) {
             for(String item : items) {
-                if(note.getNote().contains(item)) {
+                if(note.getNote().toLowerCase().contains(item.toLowerCase())) {
                     if(mapResult.get(item) != null) {
                         mapResult.put(item,mapResult.get(item)+1);
                     } else {
