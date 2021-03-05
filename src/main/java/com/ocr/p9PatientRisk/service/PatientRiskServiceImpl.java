@@ -110,4 +110,15 @@ public class PatientRiskServiceImpl implements PatientRiskService {
         return patientRiskDTO;
     }
 
+    @Override
+    public List<PatientRiskDTO> getPatientRiskByFamilly(String familly) {
+        log.debug("getPatientRiskByFamilly");
+        List<PatientRiskDTO> patientRiskDTOS = new ArrayList<>();
+        List<PatientDTO> patientDTOS = patientProxy.getPatientByFamilly(familly);
+        for(PatientDTO patient : patientDTOS) {
+            patientRiskDTOS.add(this.getPatientRisk(patient.getId()));
+        }
+        return patientRiskDTOS;
+    }
+
 }

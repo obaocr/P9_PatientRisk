@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 /**
  * Controler for PatientRisk
  */
@@ -38,6 +40,16 @@ public class PatientRiskControler {
             throw new EntityIllegalArgumentException("The parameter Id is mandatory and must be > 0");
         }
         return patientRiskService.getPatientRisk(Id);
+    }
+
+    @GetMapping("/assess")
+    public List<PatientRiskDTO> getPatientRiskByCriteria(@RequestParam String familly) {
+        log.debug("getPatientRiskByCriteria");
+        if (familly.isEmpty()) {
+            log.error("The parameter familly is mandatory");
+            throw new EntityIllegalArgumentException("The parameter familly is mandatory");
+        }
+        return patientRiskService.getPatientRiskByFamilly(familly);
     }
 
 }
