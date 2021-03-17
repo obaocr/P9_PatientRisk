@@ -3,6 +3,8 @@ package com.ocr.p9PatientRisk.controller;
 import com.ocr.p9PatientRisk.model.PatientRiskDTO;
 import com.ocr.p9PatientRisk.service.PatientRiskService;
 import com.ocr.p9PatientRisk.util.EntityIllegalArgumentException;
+import com.ocr.p9PatientRisk.util.EntityNotFoundException;
+import com.ocr.p9PatientRisk.util.NotFoundRequestException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +32,6 @@ public class PatientRiskControler {
         return "P9 Patient Risk Home";
     }
 
-    // TODO gérer not found ?
-
     @GetMapping("/assess/{Id}")
     public PatientRiskDTO getPatientRiskById(@PathVariable Integer Id) {
         log.debug("getPatientRiskById");
@@ -39,7 +39,12 @@ public class PatientRiskControler {
             log.error("The parameter Id is mandatory and must be > 0");
             throw new EntityIllegalArgumentException("The parameter Id is mandatory and must be > 0");
         }
-        return patientRiskService.getPatientRisk(Id);
+        try {
+            return patientRiskService.getPatientRisk(Id);
+        } catch (NotFoundRequestException e) {
+            throw new EntityNotFoundException("Risk for Patient " + Id + " not found");
+        }
+
     }
 
     @GetMapping("/assess")

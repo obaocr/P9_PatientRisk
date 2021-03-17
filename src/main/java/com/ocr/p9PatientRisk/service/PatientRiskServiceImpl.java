@@ -17,8 +17,6 @@ import java.util.List;
 import java.util.Map;
 
 
-// TODO gérer not found et retours HTTP ...
-
 /**
  * PatientRiskServiceImpl : implementation for PatientRiskService
  */
