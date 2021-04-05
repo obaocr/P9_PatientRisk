@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Proxy Interface for Note
  */
-@FeignClient(name = "microservice-note", url = "http://localhost:8049")
+@FeignClient(name = "microservice-note", url = "http://note:8049")
 public interface NoteProxy {
 
     @RequestMapping(method = RequestMethod.GET, value = "/notes/patient/{Id}")
