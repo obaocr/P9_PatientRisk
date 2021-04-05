@@ -11,6 +11,5 @@ public interface PatientRiskService {
 
     public PatientRiskDTO getPatientRisk(Integer Id);
     public List<PatientRiskDTO> getPatientRiskByFamilly(String familly);
-
 }
 
